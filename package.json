@@ -1,0 +1,23 @@
+{
+  "name": "gui-ify",
+  "version": "1.0.0",
+  "description": "Convert CLIs to GUIs",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliverhilferty/GUI-ify.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oliverhilferty/GUI-ify/issues"
+  },
+  "homepage": "https://github.com/oliverhilferty/GUI-ify#readme",
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "chalk": "^2.4.2"
+  }
+}
