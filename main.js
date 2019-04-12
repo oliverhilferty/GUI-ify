@@ -31,11 +31,17 @@ let splitUsageString = (usageString) => {
     });
 };
 
+/**
+ * Resolves the output of splitUsageString into an object containing positional and optional
+ * arguments, flags, and flag groups
+ * @param {string[]} paramsArray
+ * @returns {{positionalArgs: Array, optionalArgs: Array, flags: Array, groupedFlags: Array}}
+ */
 let parseArguments = (paramsArray) => {
     let parsedArgs = {
         positionalArgs: [],
         optionalArgs: [],
-        independentFlags: [],
+        flags: [],
         groupedFlags: []
     };
     for (let param of paramsArray) {
@@ -43,7 +49,7 @@ let parseArguments = (paramsArray) => {
             parsedArgs.optionalArgs.push(param.split(' ')[1]);
         } else {
             if (param[0] === '-') { // Optional flag
-                parsedArgs.independentFlags.push(param[1]);
+                parsedArgs.flags.push(param[1]);
             } else {
                 parsedArgs.positionalArgs.push(param);
             }
