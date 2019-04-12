@@ -3,6 +3,19 @@ const execSync = require('child_process').execSync;
 const chalk = require('chalk');
 
 /**
+ *
+ * @param {string} paramString
+ * @param {string} character
+ * @returns {string}
+ */
+let cleanLeadingCharacter = (paramString, character) => {
+    while (paramString[0] === character) {
+        paramString = paramString.slice(1);
+    }
+    return paramString;
+};
+
+/**
  * Get the string of arguments from a CLI's help string
  * @param {string} helpOutput
  * @returns {number | string}
@@ -48,7 +61,8 @@ let parseArguments = (paramsArray) => {
             parsedArgs.optionalArgs.push(param.split(' ')[1]);
         } else {
             if (param[0] === '-') { // Optional flag
-                parsedArgs.flags.push(param[1]);
+                let cleanedParam = cleanLeadingCharacter(param, '-');
+                parsedArgs.flags.push(cleanedParam);
             } else {
                 parsedArgs.positionalArgs.push(param);
             }
@@ -73,7 +87,8 @@ let args = parser.parseArgs();
 
 let out = execSync(`${args.CLI} --help`).toString();
 let usageString = getUsageString(out);
-let params = splitUsageString(usageString);
 
+let params = splitUsageString(usageString);
+console.log(params);
 console.log(parseArguments(params));
 
