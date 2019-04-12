@@ -24,7 +24,32 @@ let getUsageString = (helpOutput) => {
  * @returns {string[]}
  */
 let splitUsageString = (usageString) => {
-    return usageString.split(/\[|] \[|] /).filter(el => el !== '');
+    return usageString.split(/\[|] \[|] /).filter((el) => {
+        return el !== ''
+            && el.indexOf('-h') === -1
+            && el.indexOf('usage:') === -1
+    });
+};
+
+let parseArguments = (paramsArray) => {
+    let parsedArgs = {
+        positionalArgs: [],
+        optionalArgs: [],
+        independentFlags: [],
+        groupedFlags: []
+    };
+    for (let param of paramsArray) {
+        if (param.indexOf(' ') > -1) { // Optional parameter
+            parsedArgs.optionalArgs.push(param.split(' ')[1]);
+        } else {
+            if (param[0] === '-') { // Optional flag
+                parsedArgs.independentFlags.push(param[1]);
+            } else {
+                parsedArgs.positionalArgs.push(param);
+            }
+        }
+    }
+    return parsedArgs;
 };
 
 let parser = new ArgumentParser({
@@ -45,5 +70,5 @@ let out = execSync(`${args.CLI} --help`).toString();
 let usageString = getUsageString(out);
 let params = splitUsageString(usageString);
 
-console.log(params);
+console.log(parseArguments(params));
 
