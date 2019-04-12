@@ -36,7 +36,7 @@ let getUsageString = (helpOutput) => {
  * @returns {string[]}
  */
 let splitUsageString = (usageString) => {
-    return usageString.split(/\[|] \[|] /).filter((el) => {
+    return usageString.split(/\[|] \[|] |]\r/).filter((el) => {
         return el !== ''
             && el.indexOf('-h') === -1
             && el.indexOf('usage:') === -1
@@ -91,4 +91,3 @@ let usageString = getUsageString(out);
 let params = splitUsageString(usageString);
 console.log(params);
 console.log(parseArguments(params));
-
