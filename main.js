@@ -5,7 +5,7 @@ const chalk = require('chalk');
 
 /**
  * Get the string of arguments from a CLI's help string
- * @param {String} helpOutput
+ * @param {string} helpOutput
  * @returns {number | string}
  */
 let getUsageString = (helpOutput) => {
@@ -18,7 +18,12 @@ let getUsageString = (helpOutput) => {
     return -1;
 };
 
-let parseUsageString = (usageString) => {
+/**
+ * Breaks up a usage string into an array of it's flags and params
+ * @param {string} usageString
+ * @returns {string[]}
+ */
+let splitUsageString = (usageString) => {
     return usageString.split(/\[|] \[|] /).filter(el => el !== '');
 };
 
@@ -38,7 +43,7 @@ let args = parser.parseArgs();
 
 let out = execSync(`${args.CLI} --help`).toString();
 let usageString = getUsageString(out);
-let params = parseUsageString(usageString);
+let params = splitUsageString(usageString);
 
 console.log(params);
 
