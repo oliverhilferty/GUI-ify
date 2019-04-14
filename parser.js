@@ -21,7 +21,7 @@ const toName = (argString) => {
     return out.join(' ');
 };
 
-exports.CommandLineArgParser = class {
+exports.CommandLineHelpParser = class {
     constructor(usageString) {
         usageString = usageString.replace(usage, '');
 

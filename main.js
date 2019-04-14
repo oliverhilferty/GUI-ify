@@ -1,5 +1,5 @@
 const ArgumentParser = require('argparse').ArgumentParser;
-const Parser = require('./parser').CommandLineArgParser;
+const Parser = require('./parser').CommandLineHelpParser;
 const execSync = require('child_process').execSync;
 const chalk = require('chalk');
 
