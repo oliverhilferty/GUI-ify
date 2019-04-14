@@ -69,5 +69,5 @@ if (require.main === module) {
             help: 'An arbitrary string to test the parser against'
         }
     );
-    console.log('Running from CLI');
+    args = parser.parseArgs();
 }
