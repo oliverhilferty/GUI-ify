@@ -57,7 +57,7 @@ exports.CommandLineHelpParser = class {
     }
 };
 
-if (require.main === 'module') {
+if (require.main === module) {
     const ArgumentParser = require('argparse').ArgumentParser;
     const parser = new ArgumentParser({
         addHelp: true,
