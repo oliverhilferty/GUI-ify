@@ -24,15 +24,9 @@ let parser = new ArgumentParser({
 });
 
 parser.addArgument(
-    ['--CLI'],
+    ['CLI'],
     {
         help: 'The CLI tool to convert to GUI'
-    }
-);
-parser.addArgument(
-    ['--test'],
-    {
-        help: 'Test the parser against an arbitrary string'
     }
 );
 

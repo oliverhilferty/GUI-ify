@@ -56,3 +56,18 @@ exports.CommandLineHelpParser = class {
         }
     }
 };
+
+if (require.main === 'module') {
+    const ArgumentParser = require('argparse').ArgumentParser;
+    const parser = new ArgumentParser({
+        addHelp: true,
+        description: 'A simple parser to process the output of command line tool help commands'
+    });
+    parser.addArgument(
+        'test',
+        {
+            help: 'An arbitrary string to test the parser against'
+        }
+    );
+    console.log('Running from CLI');
+}
