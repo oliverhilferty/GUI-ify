@@ -1,5 +1,5 @@
 /**
- *
+ * Removes leading characters from a string
  * @param {string} paramString
  * @param {string} character
  * @returns {string}
