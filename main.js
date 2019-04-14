@@ -20,13 +20,19 @@ let getUsageString = (helpOutput) => {
 
 let parser = new ArgumentParser({
     addHelp: true,
-    prog: "GUI-ify"
+    prog: 'GUI-ify'
 });
 
 parser.addArgument(
-    ["CLI"],
+    ['--CLI'],
     {
         help: 'The CLI tool to convert to GUI'
+    }
+);
+parser.addArgument(
+    ['--test'],
+    {
+        help: 'Test the parser against an arbitrary string'
     }
 );
 
