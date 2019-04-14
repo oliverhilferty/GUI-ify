@@ -1,19 +1,7 @@
 const ArgumentParser = require('argparse').ArgumentParser;
+const Parser = require('./parser').CommandLineArgParser;
 const execSync = require('child_process').execSync;
 const chalk = require('chalk');
-
-/**
- *
- * @param {string} paramString
- * @param {string} character
- * @returns {string}
- */
-let cleanLeadingCharacter = (paramString, character) => {
-    while (paramString[0] === character) {
-        paramString = paramString.slice(1);
-    }
-    return paramString;
-};
 
 /**
  * Get the string of arguments from a CLI's help string
@@ -88,6 +76,9 @@ let args = parser.parseArgs();
 let out = execSync(`${args.CLI} --help`).toString();
 let usageString = getUsageString(out);
 
-let params = splitUsageString(usageString);
-console.log(params);
-console.log(parseArguments(params));
+// let params = splitUsageString(usageString);
+// console.log(params);
+// console.log(parseArguments(params));
+
+let argumentSet = new Parser(usageString);
+console.log(argumentSet);
