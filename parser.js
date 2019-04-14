@@ -33,7 +33,7 @@ exports.CommandLineArgParser = class {
         for (let flag of flagsList) {
             let newFlag = {};
             newFlag.raw = flag;
-            newFlag.name = utils.cleanLeadingCharacter(flag, '-');
+            newFlag.name = toName(utils.cleanLeadingCharacter(flag, '-'));
             this.flags.push(newFlag);
         }
 
@@ -42,14 +42,16 @@ exports.CommandLineArgParser = class {
             let newOptArg = {};
             newOptArg.raw = arg;
             let parts = arg.split(' ');
-            newOptArg.name = utils.cleanLeadingCharacter(parts[1], '-');
+            newOptArg.flag = parts[0];
+            newOptArg.name = toName(utils.cleanLeadingCharacter(parts[1], '-'));
             this.optionalArgs.push(newOptArg);
         }
 
         let positionalArgsList = usageString.match(posArgs);
         for (let arg of positionalArgsList) {
             let newPosArg = {};
-            newPosArg.name = arg;
+            newPosArg.raw = arg;
+            newPosArg.name = toName(arg);
             this.positionalArgs.push(newPosArg);
         }
     }
