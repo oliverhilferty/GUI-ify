@@ -18,47 +18,6 @@ let getUsageString = (helpOutput) => {
     return -1;
 };
 
-/**
- * Breaks up a usage string into an array of it's flags and params
- * @param {string} usageString
- * @returns {string[]}
- */
-let splitUsageString = (usageString) => {
-    return usageString.split(/\[|] \[|] |]\r/).filter((el) => {
-        return el !== ''
-            && el.indexOf('-h') === -1
-            && el.indexOf('usage:') === -1
-    });
-};
-
-/**
- * Resolves the output of splitUsageString into an object containing positional and optional
- * arguments, flags, and flag groups
- * @param {string[]} paramsArray
- * @returns {{positionalArgs: Array, optionalArgs: Array, flags: Array, groupedFlags: Array}}
- */
-let parseArguments = (paramsArray) => {
-    let parsedArgs = {
-        positionalArgs: [],
-        optionalArgs: [],
-        flags: [],
-        groupedFlags: []
-    };
-    for (let param of paramsArray) {
-        if (param.indexOf(' ') > -1) { // Optional parameter
-            parsedArgs.optionalArgs.push(param.split(' ')[1]);
-        } else {
-            if (param[0] === '-') { // Optional flag
-                let cleanedParam = cleanLeadingCharacter(param, '-');
-                parsedArgs.flags.push(cleanedParam);
-            } else {
-                parsedArgs.positionalArgs.push(param);
-            }
-        }
-    }
-    return parsedArgs;
-};
-
 let parser = new ArgumentParser({
     addHelp: true,
     prog: "GUI-ify"
