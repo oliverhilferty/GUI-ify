@@ -1,5 +1,5 @@
 const ArgumentParser = require('argparse').ArgumentParser;
-const Parser = require('./parser').CommandLineHelpParser;
+const HelpParser = require('./parser').CommandLineHelpParser;
 const execSync = require('child_process').execSync;
 const chalk = require('chalk');
 
@@ -35,9 +35,5 @@ let args = parser.parseArgs();
 let out = execSync(`${args.CLI} --help`).toString();
 let usageString = getUsageString(out);
 
-// let params = splitUsageString(usageString);
-// console.log(params);
-// console.log(parseArguments(params));
-
-let argumentSet = new Parser(usageString);
+let argumentSet = new HelpParser(usageString);
 console.log(argumentSet);
