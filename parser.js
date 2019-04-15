@@ -1,16 +1,16 @@
 const utils = require('./utils');
 
 // Capture 'flags' in the form "-f", "--flag", "--other-flag"
-let flags = /(-{1,2}(\w)+(-*\w)*)(?=])/g;
+const flags = /(-{1,2}(\w)+(-*\w)*)(?=])/g;
 
 // Capture optional arguments in the form "-a ARG", "-arg FOO", "--other-arg BAR"
-let optArgs = /(-{1,2}(\w)+(-*\w)*) \w+(?=])/g;
+const optArgs = /(-{1,2}(\w)+(-*\w)*) \w+(?=])/g;
 
 // Capture positional arguments in the form "f", "foo", "bar-baz"
-let posArgs = /(?<= )\w+(-\w*)*(?!]|\w)/g;
+const posArgs = /(?<= )\w+(-\w*)*(?!]|\w)/g;
 
 // Capture the beginning of a usage string up to the first argument
-let usage = /usage: (\/)*\w+((\.\w+)|\/\w+)* /g;
+const usage = /usage: (\/)*\w+((\.\w+)|\/\w+)* /g;
 
 exports.CommandLineHelpParser = class {
     constructor(usageString) {
@@ -20,19 +20,19 @@ exports.CommandLineHelpParser = class {
         this.optionalArgs = [];
         this.flags = [];
 
-        let flagsList = usageString.match(flags);
+        const flagsList = usageString.match(flags);
         for (let flag of flagsList) {
-            let newFlag = {};
+            const newFlag = {};
             newFlag.raw = flag;
             newFlag.name = utils.toName(utils.cleanLeadingCharacter(flag, '-'));
             this.flags.push(newFlag);
         }
 
-        let optionalArgsList = usageString.match(optArgs);
+        const optionalArgsList = usageString.match(optArgs);
         for (let arg of optionalArgsList) {
-            let newOptArg = {};
+            const newOptArg = {};
             newOptArg.raw = arg;
-            let parts = arg.split(' ');
+            const parts = arg.split(' ');
             newOptArg.flag = parts[0];
             newOptArg.name = utils.toName(utils.cleanLeadingCharacter(parts[1], '-'));
             this.optionalArgs.push(newOptArg);
@@ -40,7 +40,7 @@ exports.CommandLineHelpParser = class {
 
         let positionalArgsList = usageString.match(posArgs);
         for (let arg of positionalArgsList) {
-            let newPosArg = {};
+            const newPosArg = {};
             newPosArg.raw = arg;
             newPosArg.name = utils.toName(arg);
             this.positionalArgs.push(newPosArg);
