@@ -32,29 +32,35 @@ exports.CommandLineHelpParser = class {
         this.flags = [];
 
         const flagsList = usageString.match(flags);
-        for (let flag of flagsList) {
-            const newFlag = {};
-            newFlag.raw = flag;
-            newFlag.name = utils.toName(utils.cleanLeadingCharacter(flag, '-'));
-            this.flags.push(newFlag);
+        if (flagsList) {
+            for (let flag of flagsList) {
+                const newFlag = {};
+                newFlag.raw = flag;
+                newFlag.name = utils.toName(utils.cleanLeadingCharacter(flag, '-'));
+                this.flags.push(newFlag);
+            }
         }
 
         const optionalArgsList = usageString.match(optArgs);
-        for (let arg of optionalArgsList) {
-            const newOptArg = {};
-            newOptArg.raw = arg;
-            const parts = arg.split(' ');
-            newOptArg.flag = parts[0];
-            newOptArg.name = utils.toName(utils.cleanLeadingCharacter(parts[1], '-'));
-            this.optionalArgs.push(newOptArg);
+        if (optionalArgsList) {
+            for (let arg of optionalArgsList) {
+                const newOptArg = {};
+                newOptArg.raw = arg;
+                const parts = arg.split(' ');
+                newOptArg.flag = parts[0];
+                newOptArg.name = utils.toName(utils.cleanLeadingCharacter(parts[1], '-'));
+                this.optionalArgs.push(newOptArg);
+            }
         }
 
         let positionalArgsList = usageString.match(posArgs);
-        for (let arg of positionalArgsList) {
-            const newPosArg = {};
-            newPosArg.raw = arg;
-            newPosArg.name = utils.toName(arg);
-            this.positionalArgs.push(newPosArg);
+        if (positionalArgsList) {
+            for (let arg of positionalArgsList) {
+                const newPosArg = {};
+                newPosArg.raw = arg;
+                newPosArg.name = utils.toName(arg);
+                this.positionalArgs.push(newPosArg);
+            }
         }
     }
 };
