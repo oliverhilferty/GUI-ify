@@ -23,7 +23,7 @@ const posArgs = /(?<= )\w+(-\w*)*(?!]|\w)/g;
 // Capture the beginning of a usage string up to the first argument
 const usage = /usage: (\/)*\w+((\.\w+)|\/\w+)* /g;
 
-exports.CommandLineHelpParser = class {
+class CommandLineHelpParser {
     constructor(usageString) {
         usageString = usageString.replace(usage, '');
 
@@ -63,7 +63,8 @@ exports.CommandLineHelpParser = class {
             }
         }
     }
-};
+}
+exports.CommandLineHelpParser = CommandLineHelpParser;
 
 if (require.main === module) {
     const ArgumentParser = require('argparse').ArgumentParser;
@@ -78,4 +79,6 @@ if (require.main === module) {
         }
     );
     args = parser.parseArgs();
+    const cliparser = new CommandLineHelpParser(args.test);
+    console.log(cliparser);
 }
