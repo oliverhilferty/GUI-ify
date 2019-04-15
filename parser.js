@@ -8,6 +8,17 @@ const optArgs = /(-{1,2}(\w)+(-*\w)*) \w+(?=])/g;
 
 // Capture positional arguments in the form "f", "foo", "bar-baz"
 const posArgs = /(?<= )\w+(-\w*)*(?!]|\w)/g;
+// (?<= )                    | positive lookbehind for 'space' character (aka match must start with a space)
+//       \w+                 | one or more word characters
+//          (                | start of capture group
+//           -\w*            | a hyphen character, followed by 0 or more word characters
+//               )           | end of capture group
+//                *          | match previous group 0 or more times
+//                 (?!       | start of negative lookahead
+//                    ]      | lookahead for closing square bracket character...
+//                     |     | ...OR...
+//                      \w   | any word character (aka match cannot end with closing square bracket or a word character)
+//                        )  | end of negative lookahead
 
 // Capture the beginning of a usage string up to the first argument
 const usage = /usage: (\/)*\w+((\.\w+)|\/\w+)* /g;
