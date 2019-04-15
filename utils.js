@@ -10,3 +10,17 @@ exports.cleanLeadingCharacter = (paramString, character) => {
     }
     return paramString;
 };
+
+/**
+ * Split hyphenated string into words, capitalising first letter of each
+ * @param {string} argString
+ * @returns {string}
+ */
+exports.toName = (argString) => {
+    let words = argString.split('-');
+    let out = [];
+    for (let word of words) {
+        out.push(word[0].toUpperCase() + word.slice(1).toLowerCase());
+    }
+    return out.join(' ');
+};
