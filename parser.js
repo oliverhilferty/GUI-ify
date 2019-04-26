@@ -79,6 +79,6 @@ if (require.main === module) {
         }
     );
     args = parser.parseArgs();
-    const cliparser = new CommandLineHelpParser(args.test);
-    console.log(cliparser);
+    const cliParser = new CommandLineHelpParser(args.test);
+    console.log(cliParser);
 }
