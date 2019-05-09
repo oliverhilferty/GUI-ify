@@ -2,9 +2,11 @@ const utils = require('./utils');
 
 // Capture 'flags' in the form "-f", "--flag", "--other-flag"
 const flags = /(-{1,2}(\w)+(-*\w)*)(?=])/g;
+// TODO: Annotate these regular expressions
 
 // Capture optional arguments in the form "-a ARG", "-arg FOO", "--other-arg BAR"
 const optArgs = /(-{1,2}(\w)+(-*\w)*) \w+(?=])/g;
+// TODO: Annotate these regular expressions
 
 // Capture positional arguments in the form "f", "foo", "bar-baz"
 const posArgs = /(?<= )\w+(-\w*)*(?!]|\w)/g;
