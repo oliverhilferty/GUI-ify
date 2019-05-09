@@ -24,7 +24,7 @@ const posArgs = /(?<= )\w+(-\w*)*(?!]|\w)/g;
 const usage = /usage: (\/)*\w+((\.\w+)|\/\w+)* /g;
 // usage:                          | the string 'usage: '
 //        (\/)*                    | 0 or more '/' characters
-//             \w+                 | 1 0r more word characters
+//             \w+                 | 1 or more word characters
 //                (                | start of capture group
 //                 (\.\w+)         | a period character, followed by 1 or more word characters...
 //                        |        | ..OR..
