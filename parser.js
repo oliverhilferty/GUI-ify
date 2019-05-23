@@ -1,15 +1,15 @@
 const utils = require('./utils');
 
 // Capture 'flags' in the form "-f", "--flag", "--other-flag"
-const flags = /(-{1,2}(\w)+(-*\w)*)(?=])/g;
+const flagsRegEx = /(-{1,2}(\w)+(-*\w)*)(?=])/g;
 // TODO: Annotate these regular expressions
 
 // Capture optional arguments in the form "-a ARG", "-arg FOO", "--other-arg BAR"
-const optArgs = /(-{1,2}(\w)+(-*\w)*) \w+(?=])/g;
+const optArgsRegEx = /(-{1,2}(\w)+(-*\w)*) \w+(?=])/g;
 // TODO: Annotate these regular expressions
 
 // Capture positional arguments in the form "f", "foo", "bar-baz"
-const posArgs = /(?<= )\w+(-\w*)*(?!]|\w)/g;
+const posArgsRegEx = /(?<= )\w+(-\w*)*(?!]|\w)/g;
 // (?<= )                  | positive lookbehind for 'space' character (aka match must start with a space)
 //       \w+               | one or more word characters
 //          (              | start of capture group
@@ -23,7 +23,7 @@ const posArgs = /(?<= )\w+(-\w*)*(?!]|\w)/g;
 //                        )| end of negative lookahead
 
 // Capture the beginning of a usage string up to the first argument
-const usage = /usage: (\/)*\w+((\.\w+)|\/\w+)* /g;
+const usageRegEx = /usage: (\/)*\w+((\.\w+)|\/\w+)* /g;
 // usage:                          | the string 'usage: '
 //        (\/)*                    | 0 or more '/' characters
 //             \w+                 | 1 or more word characters
@@ -35,24 +35,24 @@ const usage = /usage: (\/)*\w+((\.\w+)|\/\w+)* /g;
 //                                 | a space (' ')
 
 class CommandLineHelpParser {
-    constructor(usageString) {
-        usageString = usageString.replace(usage, '');
+    parse = (usageString) => {
+        usageString = usageString.replace(usageRegEx, '');
 
-        this.positionalArgs = [];
-        this.optionalArgs = [];
-        this.flags = [];
+        const positionalArgs = [];
+        const optionalArgs = [];
+        const flags = [];
 
-        const flagsList = usageString.match(flags);
+        const flagsList = usageString.match(flagsRegEx);
         if (flagsList) {
             for (let flag of flagsList) {
                 const newFlag = {};
                 newFlag.raw = flag;
                 newFlag.name = utils.toName(utils.cleanLeadingCharacter(flag, '-'));
-                this.flags.push(newFlag);
+                flags.push(newFlag);
             }
         }
 
-        const optionalArgsList = usageString.match(optArgs);
+        const optionalArgsList = usageString.match(optArgsRegEx);
         if (optionalArgsList) {
             for (let arg of optionalArgsList) {
                 const newOptArg = {};
@@ -60,18 +60,24 @@ class CommandLineHelpParser {
                 const parts = arg.split(' ');
                 newOptArg.flag = parts[0];
                 newOptArg.name = utils.toName(utils.cleanLeadingCharacter(parts[1], '-'));
-                this.optionalArgs.push(newOptArg);
+                optionalArgs.push(newOptArg);
             }
         }
 
-        let positionalArgsList = usageString.match(posArgs);
+        let positionalArgsList = usageString.match(posArgsRegEx);
         if (positionalArgsList) {
             for (let arg of positionalArgsList) {
                 const newPosArg = {};
                 newPosArg.raw = arg;
                 newPosArg.name = utils.toName(arg);
-                this.positionalArgs.push(newPosArg);
+                positionalArgs.push(newPosArg);
             }
+        }
+
+        return {
+            positionalArgs: positionalArgs,
+            optionalArgs: optionalArgs,
+            flags: flags
         }
     }
 }
@@ -90,6 +96,7 @@ if (require.main === module) {
         }
     );
     args = parser.parseArgs();
-    const cliParser = new CommandLineHelpParser(args.test);
-    console.log(cliParser);
+    const cliParser = new CommandLineHelpParser();
+    const parsedString = cliParser.parse(args.test);
+    console.log(parsedString);
 }
