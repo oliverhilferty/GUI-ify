@@ -1,7 +1,11 @@
 const ArgumentParser = require('argparse').ArgumentParser;
 const HelpParser = require('./parser').CommandLineHelpParser;
 const execSync = require('child_process').execSync;
-const chalk = require('chalk');
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
+const url = require('url');
+// const chalk = require('chalk');
+
 
 /**
  * Get the string of arguments from a CLI's help string

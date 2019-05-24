@@ -4,6 +4,7 @@
   "description": "Convert CLIs to GUIs",
   "main": "main.js",
   "scripts": {
+    "start": "electron .",
     "test": "mocha test/"
   },
   "repository": {
@@ -18,7 +19,8 @@
   "homepage": "https://github.com/oliverhilferty/GUI-ify#readme",
   "dependencies": {
     "argparse": "^1.0.10",
-    "chalk": "^2.4.2"
+    "chalk": "^2.4.2",
+    "electron": "^5.0.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
