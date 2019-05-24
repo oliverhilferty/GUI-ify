@@ -1,4 +1,19 @@
 /**
+ * Get the string of arguments from a CLI's help string
+ * @param {string} helpOutput
+ * @returns {number | string}
+ */
+exports.extractUsageString = (helpOutput) => {
+    let usageLines = helpOutput.split('\n');
+    for (let line of usageLines) {
+        if (line.includes('usage')) {
+            return line;
+        }
+    }
+    return -1;
+};
+
+/**
  * Removes leading characters from a string
  * @param {string} paramString
  * @param {string} character
