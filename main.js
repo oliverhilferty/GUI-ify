@@ -58,6 +58,7 @@ app.on('ready', () => {
         slashes: true
     }));
 
+    // Pass the parsed help text to the 'browser' window
     win.webContents.on('did-finish-load', () => {
         win.webContents.send('ping', parsedHelpText);
     })
