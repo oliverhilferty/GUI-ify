@@ -35,5 +35,6 @@ let args = parser.parseArgs();
 let out = execSync(`${args.CLI} --help`).toString();
 let usageString = getUsageString(out);
 
-let argumentSet = new HelpParser(usageString);
-console.log(argumentSet);
+const CLIParser = new HelpParser();
+const parsedHelpText = CLIParser.parse(usageString);
+console.log(parsedHelpText);
