@@ -13,7 +13,7 @@ exports.checkbox = (name) => {
     return `
         <p>
             <label>
-                <input type="checkbox" class="filled-in" checked="checked" />
+                <input type="checkbox" class="filled-in" />
                 <span>${name}</span>
             </label>
         </p>
