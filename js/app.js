@@ -4,5 +4,11 @@ const $ = require('jquery');
 
 // Receive messages from renderer process
 electron.ipcRenderer.on('ping', (event, message) => {
-    $('body').append(components.textInput(6, 'some-id', 'My Label'));
+    for (const arg of message.positionalArgs) {
+        $('.positionalArgs').append(components.textInput(12, arg.name, arg.name));
+    }
+
+    for (const arg of message.optionalArgs) {
+        $('.optionalArgs').append(components.textInput(12, arg.name, arg.name));
+    }
 });
