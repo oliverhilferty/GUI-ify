@@ -1,8 +1,8 @@
-exports.textInput = (width, id, label, placeholder='') => {
+exports.textInput = (width, id, label) => {
     return `
         <div class="row">
             <div class="input-field col s${width}">
-                <input placeholder="${placeholder}" id="${label}" type="text">
+                <input id="${label}" type="text">
                 <label for="${label}">${label}</label>
             </div>
         </div>
