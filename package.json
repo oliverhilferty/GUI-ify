@@ -21,7 +21,7 @@
     "argparse": "^1.0.10",
     "chalk": "^2.4.2",
     "electron": "^5.0.2",
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
